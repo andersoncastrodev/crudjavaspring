@@ -1,0 +1,53 @@
+package com.eventoapp.service;
+
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.eventoapp.models.Convidado;
+import com.eventoapp.models.Evento;
+import com.eventoapp.repository.ConvidadoRepository;
+import com.eventoapp.repository.EventoRepository;
+
+@Service
+public class ConvidadoService {
+	
+	@Autowired
+	private ConvidadoRepository cr;
+	
+	@Autowired
+	private EventoRepository rep;
+
+	public void postConvidado(Long id,  @Valid Convidado convidado, BindingResult result, RedirectAttributes attributes) {
+		Optional<Evento> opt = rep.findById(id);
+
+		if(opt.isPresent()) {
+		Evento evento = opt.get();
+		convidado.setEvento(evento);
+		cr.save(convidado);
+		}
+		
+	}
+	
+	public Convidado putConvidado(String rg, @Valid Convidado convidado, BindingResult result, RedirectAttributes attributes) {
+		Convidado co = cr.findByRg(rg);
+		
+		if(co.getRg() != null) {
+			Convidado convi = co;
+			convi.setNomeConvidado(convidado.getNomeConvidado());
+			
+			cr.save(convi);
+			return convi;
+		} else {
+			return null;
+		}
+		
+		
+	}
+	
+}

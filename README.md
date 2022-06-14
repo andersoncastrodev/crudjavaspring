@@ -1,4 +1,4 @@
-<h1 align="center"> CURD Java e Sprring </h1>
+<h1 align="center"> CURD Java e Spring </h1>
 
 ## 📖 Sobre
 
